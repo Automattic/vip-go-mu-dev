@@ -1,15 +1,9 @@
 .idea
 
-# Secrets directory
-.secrets
-
-# Secret files
-jetpack-private.php
-
-# Local PHPDoc configuration file
-# overrides phpdoc.dist.xml
-phpdoc.xml
-phpdoc
+# Dev Files
+mu-plugins
+wp
+wp-tests
 
 # Composer
 vendor
