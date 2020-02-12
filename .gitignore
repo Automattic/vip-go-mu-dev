@@ -1,0 +1,19 @@
+.idea
+
+# Secrets directory
+.secrets
+
+# Secret files
+jetpack-private.php
+
+# Local PHPDoc configuration file
+# overrides phpdoc.dist.xml
+phpdoc.xml
+phpdoc
+
+# Composer
+vendor
+output
+
+# Local Dev Things
+xdebug*out
