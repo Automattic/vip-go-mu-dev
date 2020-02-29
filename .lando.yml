@@ -1,0 +1,35 @@
+name: vipwpdevenv
+recipe: wordpress
+env_file:
+  - .env
+config:
+  webroot: wp
+  php: '7.3'
+  via: nginx
+  database: mariadb
+  # If you are having trouble getting xdebug to work please see:
+  # https://docs.devwithlando.io/tutorials/php.html#toggling-xdebug
+  xdebug: true
+  config:
+    vhosts: configs/nginx-wordpress.conf
+    php: configs/php.ini
+proxy:
+  appserver_nginx:
+    - vip-go-dev.lndo.site
+services:
+  appserver:
+    overrides:
+      volumes:
+        - ./mu-plugins:/app/wp/wp-content/mu-plugins
+    run:
+      - bash /app/bin/lando/setup.sh
+    build_as_root:
+      - apt-get update -y && apt-get install -y subversion
+    composer:
+      phpunit/phpunit: '^6'
+tooling:
+  test:
+    service: appserver
+    description: "Run all tests: lando test"
+    cmd:
+      - cd /app/wp/wp-content/mu-plugins && phpunit
