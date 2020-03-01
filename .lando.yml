@@ -27,6 +27,14 @@ services:
       - apt-get update -y && apt-get install -y subversion
     composer:
       phpunit/phpunit: '^6'
+  pma:
+    type: phpmyadmin
+    hosts:
+      - database
+  mailhog:
+    type: mailhog
+    hogfrom:
+    - appserver
 tooling:
   test:
     service: appserver
