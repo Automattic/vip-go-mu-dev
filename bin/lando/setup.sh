@@ -3,9 +3,11 @@
 set -e
 
 echo_heading() {
+	echo
 	echo "======================"
 	echo $1
 	echo "======================"
+	echo
 }
 
 WP_VERSION=`curl -L http://api.wordpress.org/core/version-check/1.7/ | perl -ne '/"version":\s*"([\d\.]+)"/; print $1;'`
