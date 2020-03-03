@@ -27,7 +27,9 @@ services:
       - apt-get update -y && apt-get install -y subversion
     composer:
       phpunit/phpunit: '^6'
-  pma:
+  vip-search:
+    type: elasticsearch
+  phpmyadmin:
     type: phpmyadmin
     hosts:
       - database
