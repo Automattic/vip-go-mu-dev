@@ -37,6 +37,9 @@ wp config create \
 	--dbpass=$DB_PASS \
 	--dbhost=$DB_HOST \
 	--extra-php <<PHP
+// Env constants
+define( 'FILES_CLIENT_SITE_ID', 200508 );
+
 // Read-only filesystem
 define( 'DISALLOW_FILE_EDIT', true );
 define( 'DISALLOW_FILE_MODS', true );
@@ -50,6 +53,14 @@ if ( file_exists( ABSPATH . '/wp-content/mu-plugins/lib/wpcom-error-handler/wpco
 	require_once ABSPATH . '/wp-content/mu-plugins/lib/wpcom-error-handler/wpcom-error-handler.php';
 }
 
+// VIP Search
+define( 'USE_VIP_ELASTICSEARCH', true );
+define( 'VIP_ENABLE_ELASTICSEARCH_QUERY_INTEGRATION', true );
+define( 'VIP_ELASTICSEARCH_ENDPOINTS', [
+	'http://vip-search:9200',
+] );
+
+// VIP Config
 if ( file_exists( __DIR__ . '/wp-content/vip-config/vip-config.php' ) ) {
 	require_once( __DIR__ . '/wp-content/vip-config/vip-config.php' );
 }
@@ -73,3 +84,9 @@ wp core install \
 # Setup phpunit
 echo_heading "Setting up phpunit"
 ln -sf $LANDO_MOUNT/configs/wp-tests-config.php $WP_TESTS_DIR/wp-tests-config.php
+
+# Setup Search
+echo_heading "Setting up VIP Search"
+
+wp elasticpress delete-index
+wp elasticpress index --setup
