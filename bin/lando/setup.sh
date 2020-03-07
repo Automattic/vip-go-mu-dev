@@ -59,6 +59,8 @@ define( 'VIP_ENABLE_ELASTICSEARCH_QUERY_INTEGRATION', true );
 define( 'VIP_ELASTICSEARCH_ENDPOINTS', [
 	'http://vip-search:9200',
 ] );
+define( 'VIP_ELASTICSEARCH_USERNAME', 'test_user' );
+define( 'VIP_ELASTICSEARCH_PASSWORD', 'test_password' );
 
 // VIP Config
 if ( file_exists( __DIR__ . '/wp-content/vip-config/vip-config.php' ) ) {
