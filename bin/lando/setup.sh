@@ -90,3 +90,7 @@ echo_heading "Setting up VIP Search"
 
 wp elasticpress delete-index
 wp elasticpress index --setup
+
+# Update test user cap
+echo_heading "Add to user cap"
+wp user add-cap 1 view_query_monitor
