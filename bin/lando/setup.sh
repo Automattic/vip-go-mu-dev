@@ -84,8 +84,21 @@ wp core install \
 	--skip-email
 
 # Setup phpunit
-echo_heading "Setting up phpunit"
-ln -sf $LANDO_MOUNT/configs/wp-tests-config.php $WP_TESTS_DIR/wp-tests-config.php
+echo_heading "Setting up wp-tests"
+if [ ! -d "$WP_TESTS_PATH" ]; then
+	echo "Cloning WP Unit Tests => $WP_TESTS_PATH"
+	svn co --quiet https://develop.svn.wordpress.org/tags/$WP_VERSION/tests/phpunit/includes/ $WP_TESTS_PATH/includes
+	svn co --quiet https://develop.svn.wordpress.org/tags/$WP_VERSION/tests/phpunit/data/ $WP_TESTS_PATH/data
+else
+	echo "wp-tests already exists; skipping"
+fi
+
+if [ ! -f "$WP_TESTS_DIR/wp-tests-config.php" ]; then
+	echo "Mapping wp-tests config file"
+	ln -sf $LANDO_MOUNT/configs/wp-tests-config.php $WP_TESTS_DIR/wp-tests-config.php
+else
+	echo "wp-tests config file already exists; skipping"
+fi
 
 # Setup Search
 echo_heading "Setting up VIP Search"
