@@ -28,7 +28,7 @@ services:
     composer:
       phpunit/phpunit: '^6'
   vip-search:
-    type: elasticsearch:7.3
+    type: elasticsearch:7
   phpmyadmin:
     type: phpmyadmin
     hosts:
