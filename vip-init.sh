@@ -47,20 +47,6 @@ fi
 
 # ---
 
-echo_heading "WP Unit Tests"
-
-WP_TESTS_PATH="$ROOT_PATH/wp-tests"
-cd $ROOT_PATH
-if [ ! -d "$WP_TESTS_PATH" ]; then
-	echo "Cloning WP Unit Tests => $WP_TESTS_PATH"
-	svn co --quiet https://develop.svn.wordpress.org/tags/$WP_VERSION/tests/phpunit/includes/ $WP_TESTS_PATH/includes
-	svn co --quiet https://develop.svn.wordpress.org/tags/$WP_VERSION/tests/phpunit/data/ $WP_TESTS_PATH/data
-else
-	echo "WP Unit Test already exists; skipping"
-fi
-
-# ---
-
 echo_heading "Starting Lando"
 
 cd $ROOT_PATH
