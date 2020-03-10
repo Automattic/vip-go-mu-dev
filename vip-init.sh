@@ -19,11 +19,18 @@ MUPLUGINS_PATH="$ROOT_PATH/mu-plugins"
 if [ ! -d "$MUPLUGINS_PATH" ]; then
 	echo "Cloning mu-plugins => $MUPLUGINS_PATH"
 	git clone git@github.com:Automattic/vip-go-mu-plugins.git $MUPLUGINS_PATH
-	cd $MUPLUGINS_PATH
-	git submodule update --init --recursive
 else
-	echo "mu-plugins already exists; skipping"
+	echo "mu-plugins already exists"
 fi
+
+cd $MUPLUGINS_PATH
+
+echo "git submodules"
+git submodule update --init --recursive
+
+echo "npm + composer install"
+npm install
+composer install
 
 # ---
 
