@@ -109,3 +109,7 @@ wp elasticpress index --setup
 # Update test user cap
 echo_heading "Add to user cap"
 wp user add-cap 1 view_query_monitor
+
+# Install other wp packages you might need
+echo_heading "Add other wp packages"
+wp package install trendwerk/faker

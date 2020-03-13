@@ -1,0 +1,10 @@
+Trendwerk\Faker\Entity\Post:
+  post{1..1000}:
+    post_content: <paragraphs(4, true)>
+    post_title: '<sentence()>'
+    post_author: '@user*->id'
+    terms:
+      category: <randomElements( $array = array( 'test_posts', 'fluff', 'shaggy_dog_stories', 'old_news' ), $count = 2)>
+      post_tag: <randomElements( $array = array( 'vip_test','cat_facts','dog_time', 'human_game', 'bug_life' ), $count = 2 )>
+    meta:
+      _thumbnail_id: '@image*->id'
