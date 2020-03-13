@@ -10,6 +10,11 @@ A development environment for [mu-plugins on VIP Go](https://github.com/Automatt
 
 Environment can then be accessed at http://vip-go-dev.lndo.site (username/password is `vipgo`/`password`).
 
+## Tooling and debug
+
+To run the `wp` CLI from the local shell, just use `lando wp` as normal.
+If for any reasons you need to execute the CLI from within the app container, then launch a shell on the `devwithlando/php:<MAJOR>.<MINOR>-fpm-<RELEASE>` container using `docker exec -it <container_id> /bin/bash`.
+
 ## TODO / Possible Ideas / Improvements
 
 - Checkout of VIP Go Skeleton.
