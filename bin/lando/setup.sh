@@ -85,10 +85,10 @@ wp core install \
 
 # Setup phpunit
 echo_heading "Setting up wp-tests"
-if [ ! -d "$WP_TESTS_PATH" ]; then
-	echo "Cloning WP Unit Tests => $WP_TESTS_PATH"
-	svn co --quiet https://develop.svn.wordpress.org/tags/$WP_VERSION/tests/phpunit/includes/ $WP_TESTS_PATH/includes
-	svn co --quiet https://develop.svn.wordpress.org/tags/$WP_VERSION/tests/phpunit/data/ $WP_TESTS_PATH/data
+if [ ! -d "$WP_TESTS_DIR" ]; then
+	echo "Cloning WP Unit Tests => $WP_TESTS_DIR"
+	svn co --quiet https://develop.svn.wordpress.org/tags/$WP_VERSION/tests/phpunit/includes/ $WP_TESTS_DIR/includes
+	svn co --quiet https://develop.svn.wordpress.org/tags/$WP_VERSION/tests/phpunit/data/ $WP_TESTS_DIR/data
 else
 	echo "wp-tests already exists; skipping"
 fi
