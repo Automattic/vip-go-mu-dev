@@ -112,7 +112,7 @@ wp user add-cap 1 view_query_monitor
 
 # JMeter
 echo_heading "Setting up JMeter"
-if [ ! -D "/usr/local/bin/apache-jmeter" ]; then
+if [ ! -d "/usr/local/bin/apache-jmeter" ]; then
 	echo "Installing JMeter"
 	curl -L https://muug.ca/mirror/apache-dist/jmeter/binaries/apache-jmeter-5.2.1.tgz | tar xz -C /usr/local/bin
 else
