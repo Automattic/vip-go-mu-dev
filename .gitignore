@@ -3,6 +3,7 @@
 # Dev Files
 mu-plugins
 wp
+wp-content
 wp-tests
 
 # Composer
