@@ -60,4 +60,3 @@ tooling:
     description: "JMeter interface"
     cmd:
       - cd /app/jmeter-test-files && /bin/sh /usr/local/bin/apache-jmeter-5.2.1/bin/jmeter -n
-
