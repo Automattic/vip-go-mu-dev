@@ -4,6 +4,7 @@
 jmeter-test-files
 mu-plugins
 wp
+wp-content
 wp-tests
 
 # Composer

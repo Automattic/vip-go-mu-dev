@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -o errexit   # exit on error
+set -o errtrace  # exit on error within function/sub-shell
+set -o nounset   # error on undefined vars
+set -o pipefail  # error if piped command fails
+
 echo_heading() {
 	echo
 	echo "======================"
@@ -43,6 +48,17 @@ if [ ! -d "$WP_PATH" ]; then
 	git clone --branch $WP_VERSION --depth 1 git@github.com:WordPress/WordPress.git $WP_PATH
 else
 	echo "WordPress already exists; skipping"
+fi
+
+echo_heading "VIP Skeleton / wp-content"
+
+SKELETON_PATH="$ROOT_PATH/wp-content"
+cd $ROOT_PATH
+if [ ! -d "$SKELETON_PATH" ]; then
+	echo "Adding Skeleton => $WP_PATH"
+	svn export https://github.com/Automattic/vip-go-skeleton/trunk $SKELETON_PATH
+else
+	echo "Skeleton already exists; skipping"
 fi
 
 # ---
