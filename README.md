@@ -6,9 +6,11 @@ A development environment for [mu-plugins on VIP Go](https://github.com/Automatt
 
 1. Clone repo.
 1. Install [Lando](https://docs.lando.dev/basics/installation.html).
+1. Install node+npm.
+1. Install Composer.
 1. `./vip-init.sh`.
 
-Environment can then be accessed at http://vip-go-dev.lndo.site (username/password is `vipgo`/`password`).
+The environment can then be accessed at http://vip-go-dev.lndo.site (username/password is `vipgo`/`password`).
 
 ## Tooling and debug
 
