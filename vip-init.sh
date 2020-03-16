@@ -63,6 +63,18 @@ fi
 
 # ---
 
+echo_heading "JMeter" 
+
+JMETER_TEST_FILES_DIR=$ROOT_PATH/jmeter-test-files
+if [ ! -d "$JMETER_TEST_FILES_DIR" ]; then
+	echo "Adding JMeter test files directory"
+	mkdir $ROOT_PATH/jmeter-test-files
+else
+	echo "JMeter test files directory already exists; skipping"
+fi
+
+# ---
+
 echo_heading "Starting Lando"
 
 cd $ROOT_PATH
