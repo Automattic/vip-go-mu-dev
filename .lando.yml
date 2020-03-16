@@ -21,6 +21,8 @@ services:
     overrides:
       volumes:
         - ./mu-plugins:/app/wp/wp-content/mu-plugins
+        - ./wp/wp-content/plugins:/app/wp/wp-content/plugins
+        - ./wp/wp-content/themes:/app/wp/wp-content/themes
     run:
       - bash /app/bin/lando/setup.sh
     build_as_root:
