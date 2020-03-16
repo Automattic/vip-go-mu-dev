@@ -15,6 +15,10 @@ Environment can then be accessed at http://vip-go-dev.lndo.site (username/passwo
 To run the `wp` CLI from the local shell, just use `lando wp` as normal.
 If for any reasons you need to execute the CLI from within the app container, you can shell into the container using `lando ssh`.
 
+### Local development
+
+Local `plugins` and `themes` directories (inside `wp/wp-content` are mounted in their respective places.
+
 ## TODO / Possible Ideas / Improvements
 
 - Checkout of VIP Go Skeleton.
