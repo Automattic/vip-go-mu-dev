@@ -109,3 +109,14 @@ wp elasticpress index --setup
 # Update test user cap
 echo_heading "Add to user cap"
 wp user add-cap 1 view_query_monitor
+
+# JMeter
+JMETER_DIR=/usr/local/bin/apache-jmeter-5.2.1
+echo_heading "Setting up JMeter"
+
+if [ ! -d "$JMETER_DIR" ] || [ ! -f "$JMETER_DIR/bin/jmeter" ]; then
+	echo "Installing JMeter"
+	curl -L https://muug.ca/mirror/apache-dist/jmeter/binaries/apache-jmeter-5.2.1.tgz | tar xz -C /usr/local/bin
+else
+	echo "JMeter already installed; skipping"
+fi

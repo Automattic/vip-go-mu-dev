@@ -26,7 +26,7 @@ services:
     run:
       - bash /app/bin/lando/setup.sh
     build_as_root:
-      - apt-get update -y && apt-get install -y subversion
+      - apt-get update -y && apt-get install -y subversion openjdk-8-jdk
     composer:
       phpunit/phpunit: '^6'
   vip-search:
@@ -45,3 +45,8 @@ tooling:
     description: "Run all tests: lando test"
     cmd:
       - cd /app/wp/wp-content/mu-plugins && phpunit
+  jmeter:
+    service: appserver
+    description: "JMeter interface"
+    cmd:
+      - cd /app/jmeter-test-files && /bin/sh /usr/local/bin/apache-jmeter-5.2.1/bin/jmeter -n
