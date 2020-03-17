@@ -1,0 +1,144 @@
+#
+# ATTACHMENTS
+#
+Hellonico\Fixtures\Entity\Attachment:
+  image{1..20}:
+    file: <image(<uploadDir()>, 100, 100 )> # <uploadDir()> is required
+
+#
+# USERS
+#
+Hellonico\Fixtures\Entity\User:
+  user{1..100}:
+    user_login (unique): <username()> # '(unique)' is required
+    user_pass: 123456
+    user_email: <safeEmail()>
+    user_url: <url()>
+    user_registered: <dateTimeThisDecade()>
+    first_name: <firstName()>
+    last_name: <lastName()>
+    description: <sentence()>
+    role: <randomElement(['subscriber', 'editor'])>
+    meta:
+      phone_number: <phoneNumber()>
+      address: <streetAddress()>
+      zip: <postcode()>
+      city: <city()>
+    acf:
+      facebook_url: <url()>
+      twitter_url: <url()>
+
+#
+# TERMS
+#
+Hellonico\Fixtures\Entity\Term:
+  category{1..100}:
+    name (unique): <words(2, true)> # '(unique)' is required
+    description: <sentence()>
+    parent: '50%? <termId(childless=1)>' # 50% of created categories will have a top level parent category
+    taxonomy: 'category' # could be skipped, default to 'category'
+    slug: 
+  tag{1..100}:
+    name (unique): <words(2, true)> # '(unique)' is required
+    description: <sentence()>
+    taxonomy: post_tag
+  places{1..30}: # custom taxonomy
+    name (unique): <words(2, true)> # '(unique)' is required
+    description: <sentences(3, true)>
+    taxonomy: place
+    acf:
+      address: <streetAddress()>
+      zip: <postcode()>
+      city: <city()>
+      image: '@image*->ID'
+
+#
+# POSTS
+#
+Hellonico\Fixtures\Entity\Post:
+
+  # TEMPLATE
+  default (template):
+    post_title: <words(2, true)>
+    post_date: <dateTimeThisDecade()>
+    post_content: <paragraphs(5, true)>
+    post_excerpt: <paragraphs(1, true)>
+    post_author: '@user*->ID'
+    meta:
+      _thumbnail_id: '@image*->ID'
+
+  # POSTS
+  post{1..1000} (extends default):
+    # 'meta' and 'meta_input' are basically the same, you can use one or both,
+    # they will be merged, just don't provide the same keys in each definition
+    meta:
+      _thumbnail_id: '@image*->ID'
+    meta_input:
+      _extra_field: <paragraphs(1, true)>
+    post_category: '3x @category*->term_id' # post_category only accepts IDs
+    tax_input:
+      post_tag: '5x @tag*->term_id'
+      # post_tag: '5x <words(2, true)> # Or tags can be dynamically created
+
+  # PAGES
+  page{contact, privacy}:
+    post_title: <current()>
+    post_type: page
+    post_author: '@user*->ID'
+
+  # CUSTOM POST TYPE
+  product{1..200}:
+    post_type: product
+    post_author: '@user*->ID'
+    acf:
+      # number field
+      price: <numberBetween(10, 200)>
+      # gallery field
+      gallery: '3x @image*->ID'
+      # oembed field
+      video: https://www.youtube.com/watch?v=E90_aL870ao
+      # link field
+      link:
+        url: https://www.youtube.com/watch?v=E90_aL870ao
+        title: <words(2, true)>
+        target: _blank
+      # repeater field
+      features:
+        - label: <words(2, true)>
+          value: <sentence()>
+        - label: <words(2, true)>
+          value: <sentence()>
+        - label: <words(2, true)>
+          value: <sentence()>
+      # layout field
+      blocks:
+        - acf_fc_layout: text_image
+          title: <words(4, true)>
+          content: <sentences(8, true)>
+          image: '@image*->ID'
+        - acf_fc_layout: image_image
+          image_left: '@image*->ID'
+          image_right: '@image*->ID'
+
+#
+# COMMENTS
+#
+Hellonico\Fixtures\Entity\Comment:
+  comment{1..500}:
+    comment_post_ID: '@post*->ID'
+    user_id: '@user*->ID'
+    comment_date: <dateTimeThisDecade()>
+    comment_author: <username()>
+    comment_author_email: <safeEmail()>
+    comment_author_url: <url()>
+    comment_content: <paragraphs(2, true)>
+    comment_agent: <userAgent()>
+    comment_author_IP: <ipv4()>
+    comment_approved: 1
+    comment_karma: <numberBetween(1, 100)>
+    # 'meta' and 'comment_meta' are basically the same, you can use one or both,
+    # they will be merged, just don't provide the same keys in each definition
+    comment_meta:
+      some_key: <sentence()>
+    meta:
+      another_key: <sentence()>
