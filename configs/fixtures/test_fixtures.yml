@@ -92,38 +92,10 @@ Hellonico\Fixtures\Entity\Post:
     post_author: '@user*->ID'
 
   # CUSTOM POST TYPE
-  product{1..200}:
+  product{1..200} (extends default):
     post_type: product
     post_author: '@user*->ID'
-    acf:
-      # number field
-      price: <numberBetween(10, 200)>
-      # gallery field
-      gallery: '3x @image*->ID'
-      # oembed field
-      video: https://www.youtube.com/watch?v=E90_aL870ao
-      # link field
-      link:
-        url: https://www.youtube.com/watch?v=E90_aL870ao
-        title: <words(2, true)>
-        target: _blank
-      # repeater field
-      features:
-        - label: <words(2, true)>
-          value: <sentence()>
-        - label: <words(2, true)>
-          value: <sentence()>
-        - label: <words(2, true)>
-          value: <sentence()>
-      # layout field
-      blocks:
-        - acf_fc_layout: text_image
-          title: <words(4, true)>
-          content: <sentences(8, true)>
-          image: '@image*->ID'
-        - acf_fc_layout: image_image
-          image_left: '@image*->ID'
-          image_right: '@image*->ID'
+    
 
 #
 # COMMENTS
