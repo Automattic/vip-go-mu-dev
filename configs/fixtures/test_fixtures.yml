@@ -75,6 +75,11 @@ Hellonico\Fixtures\Entity\Post:
       _thumbnail_id: '@image*->ID'
     meta_input:
       _extra_field: <paragraphs(1, true)>
+      _string_field: <sentence()>
+      _int_field: <randomNumber()>
+      _date_field: <dateTimeThisCentury()>
+      _float_field: <latitude()>
+      
     post_category: '3x @category*->term_id' # post_category only accepts IDs
     tax_input:
       post_tag: '5x @tag*->term_id'
