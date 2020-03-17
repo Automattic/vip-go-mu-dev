@@ -52,7 +52,7 @@ tooling:
       - cd /app/wp/wp-content/mu-plugins && phpunit
   add-fake-data:
     service: appserver
-    description: "Add fake data descrived in '/configs/fixtures/test_fixtures.yml'. You can also use 'wp fixtures' directly to aim it at other files within lando."
+    description: "Add fake data described in '/configs/fixtures/test_fixtures.yml'. You can also use 'wp fixtures' directly to aim it at other files within lando."
     cmd:
      - wp fixtures load --file=/app/configs/fixtures/test_fixtures.yml
   delete-fake-data:
