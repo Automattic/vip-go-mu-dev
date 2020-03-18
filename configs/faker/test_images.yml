@@ -1,3 +1,0 @@
-Trendwerk\Faker\Entity\Image:
-  image{1..5}:
-    data: '<image()>'

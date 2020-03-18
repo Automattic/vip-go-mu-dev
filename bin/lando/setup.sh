@@ -112,7 +112,7 @@ wp user add-cap 1 view_query_monitor
 
 # Install other wp packages you might need
 echo_heading "Add other wp packages"
-wp package install trendwerk/faker
+wp package install nlemoine/wp-cli-fixtures
 
 # JMeter
 JMETER_DIR=/usr/local/bin/apache-jmeter-5.2.1
