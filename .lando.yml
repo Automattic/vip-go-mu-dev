@@ -35,7 +35,7 @@ services:
     composer:
       phpunit/phpunit: '^6'
   vip-search:
-    type: elasticsearch:7.5
+    type: elasticsearch:7.5.1
   phpmyadmin:
     type: phpmyadmin
     hosts:
