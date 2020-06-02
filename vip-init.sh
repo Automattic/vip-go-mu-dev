@@ -31,7 +31,7 @@ fi
 cd $MUPLUGINS_PATH
 
 echo "git submodules"
-git submodule update --init --recursive
+git submodule update --init --recursive --jobs 8
 
 echo "npm + composer install"
 npm install
