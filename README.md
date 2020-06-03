@@ -5,6 +5,7 @@ A development environment for [mu-plugins on VIP Go](https://github.com/Automatt
 ## Install
 
 1. Clone repo.
+1. Install SVN: `brew install svn` (or use package manager of your choice).
 1. Install [Lando](https://docs.lando.dev/basics/installation.html).
 1. Install node+npm.
 1. Install Composer.
