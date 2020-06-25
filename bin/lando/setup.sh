@@ -114,13 +114,3 @@ wp user add-cap 1 view_query_monitor
 echo_heading "Add other wp packages"
 wp package install nlemoine/wp-cli-fixtures
 
-# JMeter
-JMETER_DIR=/usr/local/bin/apache-jmeter-5.2.1
-echo_heading "Setting up JMeter"
-
-if [ ! -d "$JMETER_DIR" ] || [ ! -f "$JMETER_DIR/bin/jmeter" ]; then
-	echo "Installing JMeter"
-	curl -L https://muug.ca/mirror/apache-dist/jmeter/binaries/apache-jmeter-5.2.1.tgz | tar xz -C /usr/local/bin
-else
-	echo "JMeter already installed; skipping"
-fi
