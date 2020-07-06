@@ -31,7 +31,7 @@ services:
     run:
       - bash /app/bin/lando/setup.sh
     build_as_root:
-      - apt-get update -y
+      - apt-get update -y && apt-get install -y subversion
     composer:
       phpunit/phpunit: '^6'
   vip-search:
