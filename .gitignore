@@ -1,10 +1,10 @@
 .idea
 
 # Dev Files
-mu-plugins
-wp
-wp-content
-wp-tests
+/mu-plugins/
+/wp/
+/wp-content/
+/wp-tests/
 
 # Composer
 vendor
