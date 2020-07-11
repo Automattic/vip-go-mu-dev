@@ -30,6 +30,8 @@ services:
         - ./wp-content/vip-config:/app/wp/wp-content/vip-config
     run:
       - bash /app/bin/lando/setup.sh
+    run_as_root:
+      - bash /app/bin/lando/setup-as-root.sh
     build_as_root:
       - apt-get update -y && apt-get install -y subversion
     composer:
