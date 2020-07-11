@@ -67,6 +67,10 @@ define( 'VIP_ELASTICSEARCH_ENDPOINTS', [
 define( 'VIP_ELASTICSEARCH_USERNAME', 'test_user' );
 define( 'VIP_ELASTICSEARCH_PASSWORD', 'test_password' );
 
+// Cron Control
+define( 'WPCOM_VIP_LOAD_CRON_CONTROL_LOCALLY', true );
+define( 'WP_CRON_CONTROL_SECRET', 'this-is-a-secret' );
+
 // VIP Config
 if ( file_exists( __DIR__ . '/wp-content/vip-config/vip-config.php' ) ) {
 	require_once( __DIR__ . '/wp-content/vip-config/vip-config.php' );
