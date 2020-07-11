@@ -1,0 +1,1 @@
+DAEMON_ARGS="-wp /app/wp -log /tmp/cron-control-runner.log -debug"
