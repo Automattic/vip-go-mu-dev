@@ -5,6 +5,10 @@ set -o errtrace  # exit on error within function/sub-shell
 set -o nounset   # error on undefined vars
 set -o pipefail  # error if piped command fails
 
+exists_or_exit() {
+  command -v "$1" &> /dev/null || { echo >&2 "$1 must installed but was not found; exiting"; exit 1; }
+}
+
 echo_heading() {
 	echo
 	echo "======================"
@@ -16,6 +20,17 @@ echo_heading() {
 ROOT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 WP_VERSION=`curl -Ls http://api.wordpress.org/core/version-check/1.7/ | perl -ne '/"version":\s*"([\d\.]+)"/; print $1;'`
+
+# ---
+
+# Check dependencies
+
+exists_or_exit git
+exists_or_exit svn
+exists_or_exit npm
+exists_or_exit composer
+exists_or_exit docker
+exists_or_exit lando
 
 # ---
 
