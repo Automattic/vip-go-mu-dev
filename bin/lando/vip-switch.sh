@@ -55,10 +55,9 @@ branch=$( echo $branch | xargs )
 echo "Cloning repository..."
 git clone --single-branch --branch $branch --recurse-submodules -j8 $gitpath $vipswitchpath
 
-# Remove conflicting constants
+# Remove possibly conflicting constants
 #
-sed -i.bak '/USE_VIP_ELASTICSEARCH/d' $vipconfigpath
-sed -i.bak '/VIP_ENABLE_ELASTICSEARCH_QUERY_INTEGRATION/d' $vipconfigpath
+sed -i.bak -E -e '/USE_VIP_ELASTICSEARCH|VIP_ENABLE_ELASTICSEARCH_QUERY_INTEGRATION|DISALLOW_FILE_EDIT|DISALLOW_FILE_MODS|AUTOMATIC_UPDATER_DISABLED|WP_MAX_MEMORY_LIMIT|VIP_ELASTICSEARCH_ENDPOINTS|VIP_ELASTICSEARCH_USERNAME|VIP_ELASTICSEARCH_PASSWORD|WPCOM_VIP_LOAD_CRON_CONTROL_LOCALLY|WP_CRON_CONTROL_SECRET|WP_DEBUG|WP_DEBUG_LOG/d' $vipconfigpath
 
 echo "Clearing previous files..."
 rm -rf $wpcontentpath/client-mu-plugins/*
