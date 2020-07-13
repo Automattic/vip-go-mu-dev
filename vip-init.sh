@@ -47,6 +47,10 @@ exists_or_exit lando
 
 if has_param '--rebuild' "$@"; then
 	echo_heading "lando status"
+	echo "Rebuilding lando environment..."
+	lando rebuild -y
+elif has_param '--destroy' "$@"; then
+	echo_heading "lando status"
 	echo "Destroying lando environment..."
 	lando destroy -y
 fi
