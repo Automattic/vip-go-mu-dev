@@ -5,6 +5,17 @@ set -o errtrace  # exit on error within function/sub-shell
 set -o nounset   # error on undefined vars
 set -o pipefail  # error if piped command fails
 
+has_param() {
+    local term="$1"
+    shift
+    for arg; do
+        if [[ $arg == "$term" ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
 exists_or_exit() {
   command -v "$1" &> /dev/null || { echo >&2 "$1 must installed but was not found; exiting"; exit 1; }
 }
@@ -31,6 +42,14 @@ exists_or_exit npm
 exists_or_exit composer
 exists_or_exit docker
 exists_or_exit lando
+
+# ---
+
+if has_param '--rebuild' "$@"; then
+	echo_heading "lando status"
+	echo "Destroying lando environment..."
+	lando destroy -y
+fi
 
 # ---
 
