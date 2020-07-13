@@ -37,7 +37,9 @@ services:
     composer:
       phpunit/phpunit: '^6'
   vip-search:
-    type: elasticsearch:7.5.1
+    type: elasticsearch:custom
+    overrides:
+      image: bitnami/elasticsearch:7.8.0
   phpmyadmin:
     type: phpmyadmin
     hosts:
