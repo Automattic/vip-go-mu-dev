@@ -34,6 +34,10 @@ services:
       - bash /app/bin/lando/setup-as-root.sh
     build_as_root:
       - apt-get update -y && apt-get install -y subversion
+      - apt-get update -y
+      - apt-get install libmemcached-dev -y
+      - pecl install memcache
+      - docker-php-ext-enable memcache
     composer:
       phpunit/phpunit: '^6'
   vip-search:
@@ -48,6 +52,8 @@ services:
     type: mailhog
     hogfrom:
     - appserver
+  memcached:
+    type: memcached:1.5.12
 tooling:
   test:
     service: appserver
