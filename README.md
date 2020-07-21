@@ -24,9 +24,10 @@ Local `plugins` and `themes` directories (inside `wp/wp-content` are mounted in 
 
 ## TODO / Possible Ideas / Improvements
 
-- Checkout of VIP Go Skeleton.
-- Provision a multisite install as well.
+- Ability to use a multisite install as well.
+- Ability to override baseline config to tweak settings like PHP and WordPress versions.
 - Support for vip-sunrise.
-- HTTP Concat.
-- Files Service + Photon + Stream Wrapper support.
-- Enable debug tools by default.
+- Support for HTTP Concat.
+- Mock Files Service + Photon + Stream Wrapper support.
+- Support for developing and testing Cron Control runner.
+- Support for vip-e2e.
