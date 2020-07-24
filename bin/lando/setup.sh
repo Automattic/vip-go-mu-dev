@@ -76,6 +76,9 @@ if ( file_exists( __DIR__ . '/wp-content/vip-config/vip-config.php' ) ) {
 	require_once( __DIR__ . '/wp-content/vip-config/vip-config.php' );
 }
 
+// This is a development environment
+define( 'WP_ENVIRONMENT_TYPE', 'development' );
+
 define( 'WP_DEBUG', true );
 define( 'WP_DEBUG_LOG', true );
 PHP
