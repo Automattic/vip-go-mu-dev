@@ -57,7 +57,7 @@ branch=$( echo $branch | xargs )
 rm -rf $vipswitchpath
 
 echo "Cloning repository..."
-git clone --single-branch --branch $branch --recurse-submodules -j8 $gitpath $vipswitchpath
+git clone --branch $branch --recurse-submodules -j8 $gitpath $vipswitchpath
 
 # Remove possibly conflicting constants
 #
