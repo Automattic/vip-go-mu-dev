@@ -70,7 +70,7 @@ rm -rf $wpcontentpath/themes/*
 rm -rf $wpcontentpath/vip-config/*
 
 echo "Copying into wp-content..."
-cp -rf $vipswitchpath/* $wpcontentpath
+cp -Rf $vipswitchpath/. $wpcontentpath
 
 echo "Deleting clone..."
 rm -rf $vipswitchpath
