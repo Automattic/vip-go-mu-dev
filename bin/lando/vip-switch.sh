@@ -52,6 +52,10 @@ fi
 gitpath=$( echo $gitpath | xargs )
 branch=$( echo $branch | xargs )
 
+# Cleanup if tmp is hanging around for whatever reason 
+#
+rm -rf $vipswitchpath
+
 echo "Cloning repository..."
 git clone --single-branch --branch $branch --recurse-submodules -j8 $gitpath $vipswitchpath
 
@@ -59,18 +63,10 @@ git clone --single-branch --branch $branch --recurse-submodules -j8 $gitpath $vi
 #
 sed -i.bak -E -e '/USE_VIP_ELASTICSEARCH|VIP_ENABLE_ELASTICSEARCH_QUERY_INTEGRATION|DISALLOW_FILE_EDIT|DISALLOW_FILE_MODS|AUTOMATIC_UPDATER_DISABLED|WP_MAX_MEMORY_LIMIT|VIP_ELASTICSEARCH_ENDPOINTS|VIP_ELASTICSEARCH_USERNAME|VIP_ELASTICSEARCH_PASSWORD|WPCOM_VIP_LOAD_CRON_CONTROL_LOCALLY|WP_CRON_CONTROL_SECRET|WP_DEBUG|WP_DEBUG_LOG/d' $vipconfigpath
 
-echo "Clearing previous files..."
-rm -rf $wpcontentpath/client-mu-plugins/*
-rm -rf $wpcontentpath/config/*
-rm -rf $wpcontentpath/image/*
-rm -rf $wpcontentpath/languages/*
-rm -rf $wpcontentpath/plugins/*
-rm -rf $wpcontentpath/private/*
-rm -rf $wpcontentpath/themes/*
-rm -rf $wpcontentpath/vip-config/*
+echo "Syncing into wp-content..."
 
-echo "Copying into wp-content..."
-cp -Rf $vipswitchpath/. $wpcontentpath
+rsync_params="-a --delete"
+rsync -a --delete --info=progress2 $vipswitchpath/ $wpcontentpath
 
 echo "Deleting clone..."
 rm -rf $vipswitchpath
