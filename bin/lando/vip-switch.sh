@@ -59,6 +59,10 @@ rm -rf $vipswitchpath
 echo "Cloning repository..."
 git clone --branch $branch --recurse-submodules -j8 $gitpath $vipswitchpath
 
+# Remove possibly conflicting constants
+#
+sed -i.bak -E -e '/USE_VIP_ELASTICSEARCH|VIP_ENABLE_ELASTICSEARCH_QUERY_INTEGRATION|DISALLOW_FILE_EDIT|DISALLOW_FILE_MODS|AUTOMATIC_UPDATER_DISABLED|WP_MAX_MEMORY_LIMIT|VIP_ELASTICSEARCH_ENDPOINTS|VIP_ELASTICSEARCH_USERNAME|VIP_ELASTICSEARCH_PASSWORD|WPCOM_VIP_LOAD_CRON_CONTROL_LOCALLY|WP_CRON_CONTROL_SECRET|WP_DEBUG|WP_DEBUG_LOG/d' $vipconfigpath
+
 echo "Syncing into wp-content..."
 
 # Need to clone and then rsync because deleting something like the theme directory and recreating it breaks the mounting
