@@ -65,7 +65,8 @@ sed -i.bak -E -e '/USE_VIP_ELASTICSEARCH|VIP_ENABLE_ELASTICSEARCH_QUERY_INTEGRAT
 
 echo "Syncing into wp-content..."
 
-rsync_params="-a --delete"
+# Need to clone and then rsync because deleting something like the theme directory and recreating it breaks the mounting
+#
 rsync -a --delete --info=progress2 $vipswitchpath/ $wpcontentpath
 
 echo "Deleting clone..."
