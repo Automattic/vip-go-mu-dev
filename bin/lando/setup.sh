@@ -17,9 +17,6 @@ echo_heading() {
 
 WP_VERSION=`curl -L http://api.wordpress.org/core/version-check/1.7/ | perl -ne '/"version":\s*"([\d\.]+)"/; print $1;'`
 
-# Remove leftover wp-config files
-rm -rf $LANDO_WEBROOT/wp-config.php
-
 # Create DB
 echo_heading "Setting up database"
 
@@ -33,7 +30,14 @@ echo_heading "Verifying WP-CLI"
 wp --version
 
 # wp-config
-echo_heading "Creating wp-config"
+echo_heading "Prepare wp-config"
+
+# Remove leftover wp-config files
+rm -rf $LANDO_WEBROOT/wp-config.php
+rm -rf $LANDO_WEBROOT/config/
+
+mkdir -p $LANDO_WEBROOT/config/
+ln -sf $LANDO_MOUNT/configs/wp-config-defaults.php $LANDO_WEBROOT/config/wp-config-defaults.php
 
 wp config create \
 	--path=$LANDO_WEBROOT \
@@ -42,79 +46,7 @@ wp config create \
 	--dbpass=$DB_PASS \
 	--dbhost=$DB_HOST \
 	--extra-php <<PHP
-// VIP Config
-// Execute first so that we can handle constant conflicts easily
-if ( file_exists( __DIR__ . '/wp-content/vip-config/vip-config.php' ) ) {
-	require_once( __DIR__ . '/wp-content/vip-config/vip-config.php' );
-}
-
-// Env constants
-if ( ! defined( 'FILES_CLIENT_SITE_ID' ) ) {
-	define( 'FILES_CLIENT_SITE_ID', 200508 );
-}
-
-// Read-only filesystem
-if ( ! defined( 'DISALLOW_FILE_EDIT' ) ) {
-	define( 'DISALLOW_FILE_EDIT', true );
-}
-
-if ( ! defined( 'DISALLOW_FILE_MODS' ) ) {
-	define( 'DISALLOW_FILE_MODS', true );
-}
-
-if ( ! defined( 'AUTOMATIC_UPDATER_DISABLED' ) ) {
-	define( 'AUTOMATIC_UPDATER_DISABLED', true );
-}
-
-// Server limits
-if ( ! defined( 'WP_MAX_MEMORY_LIMIT' ) ) {
-	define( 'WP_MAX_MEMORY_LIMIT', '512M' );
-}
-
-// Load custom error logging functions, if available
-if ( file_exists( ABSPATH . '/wp-content/mu-plugins/lib/wpcom-error-handler/wpcom-error-handler.php' ) ) {
-	require_once ABSPATH . '/wp-content/mu-plugins/lib/wpcom-error-handler/wpcom-error-handler.php';
-}
-
-// VIP Search
-if ( ! defined( 'USE_VIP_ELASTICSEARCH' ) ) {
-	define( 'USE_VIP_ELASTICSEARCH', true );
-}
-
-if ( ! defined( 'VIP_ENABLE_ELASTICSEARCH_QUERY_INTEGRATION' ) ) {
-	define( 'VIP_ENABLE_ELASTICSEARCH_QUERY_INTEGRATION', true );
-}
-
-if ( ! defined( 'VIP_ELASTICSEARCH_ENDPOINTS' ) ) {
-	define( 'VIP_ELASTICSEARCH_ENDPOINTS', [
-		'http://vip-search:9200',
-	] );
-}
-
-if ( ! defined( 'VIP_ELASTICSEARCH_USERNAME' ) ) {
-	define( 'VIP_ELASTICSEARCH_USERNAME', 'test_user' );
-}
-
-if ( ! defined( 'VIP_ELASTICSEARCH_PASSWORD' ) ) {
-	define( 'VIP_ELASTICSEARCH_PASSWORD', 'test_password' );
-}
-
-// Cron Control
-if ( ! defined( 'WPCOM_VIP_LOAD_CRON_CONTROL_LOCALLY' ) ) {
-	define( 'WPCOM_VIP_LOAD_CRON_CONTROL_LOCALLY', true );
-}
-
-if ( ! defined( 'WP_CRON_CONTROL_SECRET' ) ) {
-	define( 'WP_CRON_CONTROL_SECRET', 'this-is-a-secret' );
-}
-
-if ( ! defined( 'WP_DEBUG' ) ) {
-	define( 'WP_DEBUG', true );
-}
-
-if ( ! defined( 'WP_DEBUG_LOG' ) ) {
-	define( 'WP_DEBUG_LOG', true );
-}
+require( __DIR__ . '/config/wp-config-defaults.php' );
 PHP
 
 # Install WordPress
