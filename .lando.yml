@@ -52,6 +52,11 @@ services:
     - appserver
   memcached:
     type: memcached:1.5.12
+  statsd:
+    type: compose
+    services:
+      image: statsd/statsd:v0.8.6
+      command: node stats.js /app/configs/statsd-config.js
 tooling:
   test:
     service: appserver

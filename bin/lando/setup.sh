@@ -46,6 +46,9 @@ wp config create \
 	--dbpass=$DB_PASS \
 	--dbhost=$DB_HOST \
 	--extra-php <<PHP
+define( 'VIP_STATSD_HOST', 'statsd' );
+define( 'VIP_STATSD_PORT', 8125 );
+
 require( __DIR__ . '/config/wp-config-defaults.php' );
 PHP
 
