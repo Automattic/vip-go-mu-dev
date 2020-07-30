@@ -54,7 +54,7 @@ echo_heading "Installing WordPress $WP_VERSION"
 
 wp core install \
 	--path=$LANDO_WEBROOT \
-	--url="http://vip-go-dev.lndo.site" \
+	--url="http://$DOMAIN" \
 	'--title="VIP Go Dev"' \
 	--admin_user="vipgo" \
 	--admin_password="password" \
