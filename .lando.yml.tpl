@@ -1,4 +1,4 @@
-name: vipwpdevenv
+name: vipdev%LANDO_NAME%
 recipe: wordpress
 env_file:
   - .env
@@ -11,15 +11,17 @@ config:
   # https://docs.devwithlando.io/tutorials/php.html#toggling-xdebug
   xdebug: true
   config:
-    vhosts: configs/nginx-wordpress.conf
-    php: configs/php.ini
+    vhosts: ../configs/nginx-wordpress.conf
+    php: ../configs/php.ini
 proxy:
   appserver_nginx:
-    - vip-go-dev.lndo.site
+    - %LANDO_NAME%.vipdev.lndo.site
 services:
   appserver:
     overrides:
       volumes:
+        - ../bin:/app/bin
+        - ../configs:/app/configs
         - ./mu-plugins:/app/wp/wp-content/mu-plugins
         - ./wp-content/client-mu-plugins:/app/wp/wp-content/client-mu-plugins
         - ./wp-content/images:/app/wp/wp-content/images

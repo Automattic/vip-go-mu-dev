@@ -5,6 +5,7 @@
 /wp/
 /wp-content/
 /wp-tests/
+/site-*
 
 # Composer
 vendor
