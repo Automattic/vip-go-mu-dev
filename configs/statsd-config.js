@@ -124,7 +124,7 @@ Optional Variables:
                          changes. The default is true. Set this to false to disable.
 */
 {
-  port: 8125
+  port: 8126
 , backends: [ "./backends/console" ]
 // Set this to true if you want to show all received messages in the console
 , dumpMessages: false
