@@ -84,6 +84,16 @@ if ( ! defined( 'VIP_ELASTICSEARCH_PASSWORD' ) ) {
 }
 
 /**
+ * StatsD
+ */
+if ( ! defined( 'VIP_STATSD_HOST' ) ) {
+	define( 'VIP_STATSD_HOST', 'statsd' );
+}
+if ( ! defined( 'VIP_STATSD_PORT' ) ) {
+	define( 'VIP_STATSD_PORT', 8126 );
+}
+
+/**
  * Debugging
  */
 if ( ! defined( 'WP_DEBUG' ) ) {
