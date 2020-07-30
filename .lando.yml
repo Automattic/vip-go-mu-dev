@@ -42,6 +42,7 @@ services:
     type: elasticsearch:custom
     overrides:
       image: bitnami/elasticsearch:7.8.0
+    portforward: 13306
   phpmyadmin:
     type: phpmyadmin
     hosts:
@@ -52,6 +53,8 @@ services:
     - appserver
   memcached:
     type: memcached:1.5.12
+  database:
+    portforward: 13306
 tooling:
   test:
     service: appserver
