@@ -42,7 +42,7 @@ services:
     type: elasticsearch:custom
     overrides:
       image: bitnami/elasticsearch:7.8.0
-    portforward: 13306
+    portforward: 19200
   phpmyadmin:
     type: phpmyadmin
     hosts:
