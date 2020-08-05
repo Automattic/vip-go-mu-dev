@@ -15,7 +15,8 @@ config:
     php: ../configs/php.ini
 proxy:
   appserver_nginx:
-    - %LANDO_NAME%.vipdev.lndo.site
+    - '%LANDO_NAME%.vipdev.lndo.site'
+    - '*.%LANDO_NAME%.vipdev.lndo.site'
 services:
   appserver:
     overrides:
@@ -77,3 +78,15 @@ tooling:
     description: "Swap your wp-content with a client repo or the vip-go-skeleton"
     cmd:
      - bash /app/bin/lando/vip-switch.sh
+
+  setup-multisite:
+    service: appserver
+    description: "Setup WordPress network to enable multisite mode"
+    cmd:
+      - bash /app/bin/lando/setup-multisite.sh
+
+  add-site:
+    service: appserver
+    description: "Add site to a multisite installation"
+    cmd:
+      - bash /app/bin/lando/add-site.sh
