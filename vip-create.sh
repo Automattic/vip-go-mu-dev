@@ -19,7 +19,7 @@ while getopts "hs:t:mw:r:b:u:" opt; do
     h) syntax; exit;;
     s) slug=$OPTARG;;
     t) title=$OPTARG;;
-    m) multisite=1;;
+    m) multisite=true;;
     w) wp_version=$OPTARG;;
     r) client_repo=$OPTARG;;
     b) client_branch=$OPTARG;;
@@ -64,12 +64,20 @@ else
   svn export https://github.com/Automattic/vip-go-skeleton/trunk wp-content
 fi
 
-# TODO: support for the provided title (do we want this?)
-# TODO: multisite support
+if [ "$multisite" = "true" ]; then
+  multisite_comment=''
+else
+  multisite_comment='#'
+fi
+
+[ -z "$title" ] && title="VIP Go Dev"
 
 echo "Creating .env"
-cat ../.env.tpl | sed -e "s/%LANDO_NAME%/$slug/g" > .env
-echo "Creating .lando.yml"
-cat ../.lando.yml.tpl | sed -e "s/%LANDO_NAME%/$slug/g" > .lando.yml
+cat ../.env.tpl | sed -e "s/%LANDO_NAME%/$slug/g" -e "s/%TITLE%/$title/" > .env
 
-echo lando start
+echo "Creating .lando.yml"
+cat ../.lando.yml.tpl | sed -e "s/%LANDO_NAME%/$slug/g" -e "s/%MULTISITE%/$multisite_comment/" > .lando.yml
+
+echo
+echo "Site created in $instance. To start it:"
+echo "$ cd $instance; lando start"

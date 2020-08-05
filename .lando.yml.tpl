@@ -33,6 +33,7 @@ services:
         - ./wp-content/vip-config:/app/wp/wp-content/vip-config
     run:
       - bash /app/bin/lando/setup.sh
+      %MULTISITE%- bash /app/bin/lando/setup-multisite.sh
     run_as_root:
       - bash /app/bin/lando/setup-as-root.sh
     build_as_root:

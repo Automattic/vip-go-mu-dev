@@ -7,3 +7,4 @@ WP_DIR=/app/wp
 WP_TESTS_DIR=/tmp/wp-tests
 WP_CLI_CONFIG_PATH=/app/configs/wp-cli.yml
 DOMAIN=%LANDO_NAME%.vipdev.lndo.site
+TITLE="%TITLE%"
