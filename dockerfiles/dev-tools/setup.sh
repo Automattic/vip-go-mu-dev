@@ -28,8 +28,9 @@ wp core install \
   --title="$wp_title" \
   --admin_user="vipgo" \
   --admin_email="vip@localhost.local" \
-  --skip-email \
   --admin_password="password" \
+  --skip-email \
+  --skip-plugins \
   --path=/wp \
   --allow-root #2>/dev/null
 

@@ -7,12 +7,6 @@ proxy:
     - '*.<%= siteSlug %>.vipdev.lndo.site'
 services:
 
-  appserver:
-    type: compose
-    services:
-      image: alpine
-      command: sleep infinity
-
   devtools:
     type: compose
     services:
@@ -52,7 +46,7 @@ services:
 
   database:
     type: mariadb
-    portforward: 13306
+    #portforward: 13306
 
   memcached:
     type: memcached:1.5.12

@@ -102,7 +102,7 @@ async function upgradeAction( slug, options ) {
 
 	fs.writeFileSync( sitePath + '/siteData.json', JSON.stringify( siteData ) );
 
-	await writeLandoFile( siteData, sitePath );
+	await prepareLandoEnv( siteData, sitePath );
 
 	landoRebuild( sitePath );
 }
@@ -115,7 +115,7 @@ function setOptionsForSiteId( options, siteId ) {
 
 	const repo = siteInfo.data[0].source_repo;
 	const branch = siteInfo.data[0].source_repo_branch;
-	options.clientcode = 'git@github.com:' + repo + '#' + branch
+	options.clientCode = 'git@github.com:' + repo + '#' + branch
 
     response = cp.execSync( 'vipgo api GET /sites/' + siteId + '/allocations' ).toString();
 	const siteAllocations = JSON.parse( response );
