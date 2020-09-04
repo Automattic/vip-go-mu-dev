@@ -68,6 +68,12 @@ tooling:
     cmd:
       - cd /app/wp/wp-content/mu-plugins && phpunit
 
+  test-ms:
+    service: appserver
+    description: "Run all tests on multisite: lando test"
+    cmd:
+      - cd /app/wp/wp-content/mu-plugins && WP_MULTISITE=1 phpunit
+
   add-fake-data:
     service: appserver
     description: "Add fake data described in '/configs/fixtures/test_fixtures.yml'. You can also use 'wp fixtures' directly to aim it at other files within lando."
