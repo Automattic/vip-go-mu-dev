@@ -49,6 +49,13 @@ wp config create \
 require( __DIR__ . '/config/wp-config-defaults.php' );
 PHP
 
+# Other files
+echo_heading "Setting up other files"
+
+## sunrise.php
+rm -rf $LANDO_WEBROOT/wp-content/sunrise.php
+ln -sf $LANDO_MOUNT/configs/sunrise.php $LANDO_WEBROOT/wp-content/sunrise.php
+
 # Install WordPress
 echo_heading "Installing WordPress $WP_VERSION"
 
