@@ -5,7 +5,7 @@ ARG WP_VERSION
 RUN apk add --no-cache --virtual build-deps git && \
     apk add --no-cache rsync && \
     git clone --branch $WP_VERSION --depth 1 https://github.com/WordPress/WordPress /wp && \
-    mkdir /wp/config /wp/wp-content/mu-plugins /wp/wp-content/client-mu-plugins /wp/wp-content/images /wp/wp-content/languages /wp/wp-content/private /wp/wp-content/vip-config && \
+    mkdir /wp/config /wp/log /wp/wp-content/mu-plugins /wp/wp-content/client-mu-plugins /wp/wp-content/images /wp/wp-content/languages /wp/wp-content/private /wp/wp-content/vip-config && \
     rm -rf /wp/.git && \
     apk del build-deps
 

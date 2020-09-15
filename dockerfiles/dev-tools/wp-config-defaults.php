@@ -92,14 +92,3 @@ if ( ! defined( 'VIP_STATSD_HOST' ) ) {
 if ( ! defined( 'VIP_STATSD_PORT' ) ) {
 	define( 'VIP_STATSD_PORT', 8126 );
 }
-
-/**
- * Debugging
- */
-if ( ! defined( 'WP_DEBUG' ) ) {
-	define( 'WP_DEBUG', true );
-}
-
-if ( ! defined( 'WP_DEBUG_LOG' ) ) {
-	define( 'WP_DEBUG_LOG', true );
-}

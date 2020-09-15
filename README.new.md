@@ -56,7 +56,7 @@ This will rebuild the app containers but without losing any data.
 
 There are a few things that are needed before matching the functionalities of the current lando environment in `mu-dev`:
 
-- Multisite support
+- Multisite support [DONE]
 - Cron control
 - Mu-plugins tests
 

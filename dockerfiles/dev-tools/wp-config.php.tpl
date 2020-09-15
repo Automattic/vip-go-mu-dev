@@ -10,5 +10,16 @@ define( 'DB_COLLATE', '' );
 
 $table_prefix = 'wp_';
 
-require( __DIR__ . '/wp-config-defaults.php' );
+if ( ! defined( 'WP_DEBUG' ) ) {
+    define( 'WP_DEBUG', true );
+}
 
+if ( ! defined( 'WP_DEBUG_LOG' ) ) {
+    define( 'WP_DEBUG_LOG', '/wp/log/debug.log' );
+}
+
+if ( ! defined( 'WP_DEBUG_DISPLAY' ) ) {
+	define( 'WP_DEBUG_DISPLAY', false );
+}
+
+require( __DIR__ . '/wp-config-defaults.php' );
