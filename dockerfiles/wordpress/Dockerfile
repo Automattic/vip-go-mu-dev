@@ -9,7 +9,7 @@ RUN apk add --no-cache --virtual build-deps git && \
     rm -rf /wp/.git && \
     apk del build-deps
 
-COPY object-cache*.php /wp/wp-content/
+COPY object-cache*.php sunrise.php /wp/wp-content/
 COPY wp-config.php /wp/
 COPY run.sh /
 
