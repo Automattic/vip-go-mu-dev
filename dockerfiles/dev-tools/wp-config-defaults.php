@@ -47,6 +47,10 @@ if ( ! defined( 'WP_CRON_CONTROL_SECRET' ) ) {
 /**
  * VIP Env variables
  */
+if ( ! defined( 'WPCOM_IS_VIP_ENV' ) ) {
+	define( 'WPCOM_IS_VIP_ENV', true );
+}
+
 if ( ! defined( 'FILES_CLIENT_SITE_ID' ) ) {
 	define( 'FILES_CLIENT_SITE_ID', 200508 );
 }
