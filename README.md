@@ -1,53 +1,66 @@
-## VIP Go mu-plugins Dev
+## Dev environment with containers
 
-A development environment for [mu-plugins on VIP Go](https://github.com/Automattic/vip-go-mu-plugins/).
+This is a PoC of a new model for the dev environment based almost completely on containers.
 
-## Install
+It also integrates the ideas of multi-instance support from https://github.com/Automattic/vip-go-mu-dev/pull/32
 
-1. Clone repo.
-1. Install SVN: `brew install svn` (or use package manager of your choice).
-1. Install [Lando](https://docs.lando.dev/basics/installation.html).
-1. Install node+npm.
-1. Install Composer.
-1. `./vip-init.sh`.
+### Creating an instance
 
-The environment can then be accessed at http://vip-go-dev.lndo.site (username/password is `vipgo`/`password`).
+After installing dependencies with `npm install`, you can create a new instance with:
 
-## Tooling and debug
+```
+./vipdev.js create <slug>
+```
 
-### WP CLI
-To run the `wp` CLI from the local shell, just use `lando wp` as normal.
-If for any reasons you need to execute the CLI from within the app container, you can shell into the container using `lando ssh`.
+This will create the directory `site-<slug>` where the final `.lando.yml` file will be located.
 
-### StatsD
-StatsD is also reporting to the console as lando runs. To view the output, `lando logs` will show you all output logs including statsd. `lando logs -f` allows you to follow the logs and keep a persistent steam of log data outputting to your console.
+You can set several parameters to tune the instance, e.g:
 
-### Local development
+```
+./vipdev.js create testing \
+  --title "Site Title" \
+  --php 7.3 \
+  --wordpress 5.5 \
+  --mu-plugins /home/code/vip-go-mu-plugins \
+  --jetpack 8.8.2 \
+  --client-code /home/code/vip-wordpress-com
+```
 
-You can run `lando vip-switch git:<repo url> [optional -b, --branch <branch-name> ]` to switch to the relevant VIP code repository.
+As you can see, you can choose to use your local clone of `mu-plugins` in case you want to develop on it (by default it will use a container that auto updates the repo). You can also choose the local path to the client code (by default it will use the `vip-go-skeleton` container).
 
-Local `plugins` and `themes` directories (inside `wp/wp-content` are mounted in their respective places.
+You can also fetch all required data using the site id:
 
-### Multisite
+```
+./vipdev.js create wpvip --site 1513
+```
 
-You can enable multisite by running `lando setup-multisite`
+This will obtain the PHP and WordPress version from GOOP, and it will clone the git repo with the client code, putting it in `site-wpvip/clientcode`
 
-You can add multisites after that by running `lando add-site --slug=<slug> --title="<title>"`
 
-### Add test data
+### Upgrading an instance
 
-You can add posts, users, etc... by running `lando add-fake-data`
+After an instance has been created, you can upgrade some of its components. E.g:
 
-You can delete this data by running `lando delete-fake-data`
+```
+./vipdev.js upgrade testing \
+  --php 7.4 \
+  --wordpress 5.5.1 \
+  --mu-plugins auto \
+  --jetpack 8.9
+```
 
-This is done via wp-fixtures and the details of the defaults are available in [test_fixtures.yml](https://github.com/Automattic/vip-go-mu-dev/blob/master/configs/fixtures/test_fixtures.yml).
+This will rebuild the app containers but without losing any data.
 
-## TODO / Possible Ideas / Improvements
 
-- ~~Ability to use a multisite install as well.~~(Added)
-- Ability to override baseline config to tweak settings like PHP and WordPress versions.
-- Support for vip-sunrise.
-- Support for HTTP Concat.
-- Mock Files Service + Photon + Stream Wrapper support.
-- Support for developing and testing Cron Control runner.
-- Support for vip-e2e.
+### To-Do
+
+There are a few things that are needed before matching the functionalities of the current lando environment in `mu-dev`:
+
+- Multisite support [DONE]
+- Cron control
+- Mu-plugins tests
+
+
+### Container definitions
+
+In the directory `docker` you can find the Dockerfiles for all containers used in this environment. They are pushed to the organization `wpvipdev` in dockerhub (all of them are based on open source projects, so they can be public)
