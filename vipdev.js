@@ -14,7 +14,7 @@ const containerImages = {
 	},
 	'jetpack': {
 		image: 'wpvipdev/jetpack',
-		tag: '8.8',
+		tag: '8.9',
 	},
 	'muplugins': {
 		image: 'wpvipdev/mu-plugins',
@@ -116,6 +116,8 @@ function setOptionsForSiteId( options, siteId ) {
 	const repo = siteInfo.data[0].source_repo;
 	const branch = siteInfo.data[0].source_repo_branch;
 	options.clientCode = 'git@github.com:' + repo + '#' + branch
+
+	options.multisite = siteInfo.data[0].is_multisite;
 
     response = cp.execSync( 'vipgo api GET /sites/' + siteId + '/allocations' ).toString();
 	const siteAllocations = JSON.parse( response );
