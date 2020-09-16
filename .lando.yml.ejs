@@ -22,7 +22,7 @@ services:
   nginx:
     type: compose
     services:
-      image: wpvipdev/nginx:1.19.2-1
+      image: wpvipdev/nginx:1.19.2-2
       command: nginx -g "daemon off;"
       volumes:
 <% wpVolumes() %>

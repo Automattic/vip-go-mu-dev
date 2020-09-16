@@ -32,7 +32,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Checking for WordPress installation..."
-wp --allow-root get option siteurl
+wp --allow-root option get siteurl
 if [ $? -ne 0 ]; then
   echo "No installation found, installing WordPress..."
   if [ -n "$multisite_domain" ]; then

@@ -31,7 +31,7 @@ program
 	.command( 'create <slug>' )
 	.description( 'Create a new local development instance' )
 	.arguments( 'slug', 'Short name to be used for the lando project and the internal domain' )
-	.option( '-t, --title <title>', 'Title for the WordPress site (default: "VIP Dev"' )
+	.option( '-t, --title <title>', 'Title for the WordPress site (default: "VIP Dev")' )
 	.option( '-m, --multisite', 'Enable multisite install' )
 	.option( '-s, --site <site_id>', 'Get all options below for a specific site' )
 	.option( '-p, --php <php-version>', 'Use a specific PHP version (default: ' + defaultPHP + ')' )
@@ -56,11 +56,11 @@ program
 program.parse( process.argv );
 
 async function createAction( slug, options ) {
-	const sitePath = 'site-' + slug;
-	if ( fs.existsSync( sitePath ) ) {
+	const instancePath = 'dev-' + slug;
+	if ( fs.existsSync( instancePath ) ) {
 		return console.error( 'Instance ' + slug + ' already exists' );
 	}
-	fs.mkdirSync( sitePath );
+	fs.mkdirSync( instancePath );
 
 	// Fill options if a site is provided
 	// TODO: Detect incompatible options
@@ -68,7 +68,7 @@ async function createAction( slug, options ) {
 		setOptionsForSiteId( options, options.site );
 	}
 
-	let siteData = {
+	let instanceData = {
 		siteSlug: slug,
 		wpTitle: options.title || 'VIP Dev',
 		multisite: options.multisite || false,
@@ -78,33 +78,33 @@ async function createAction( slug, options ) {
 		clientcode: {},
 	};
 
-	updateSiteDataWithOptions( siteData, options );
+	updateSiteDataWithOptions( instanceData, options );
 
-	await prepareLandoEnv( siteData, sitePath );
+	await prepareLandoEnv( instanceData, instancePath );
 
-	console.log( siteData );
-	fs.writeFileSync( sitePath + '/siteData.json', JSON.stringify( siteData ) );
+	console.log( instanceData );
+	fs.writeFileSync( instancePath + '/instanceData.json', JSON.stringify( instanceData ) );
 
 	if ( options.start ) {
-		landoStart( sitePath );
-		console.log( 'Lando environment created on directory "' + sitePath + '" and started.' );
+		landoStart( instancePath );
+		console.log( 'Lando environment created on directory "' + instancePath + '" and started.' );
 	} else {
-		console.log( 'Lando environment created on directory "' + sitePath + '".' );
+		console.log( 'Lando environment created on directory "' + instancePath + '".' );
 		console.log( 'You can cd into that directory and run "lando start"' );
 	}
 }
 
 async function upgradeAction( slug, options ) {
-	const sitePath = 'site-' + slug;
-	const siteData = JSON.parse( fs.readFileSync( sitePath + '/siteData.json' ) );
+	const instancePath = 'dev-' + slug;
+	const instanceData = JSON.parse( fs.readFileSync( instancePath + '/instanceData.json' ) );
 
-	updateSiteDataWithOptions( siteData, options );
+	updateSiteDataWithOptions( instanceData, options );
 
-	fs.writeFileSync( sitePath + '/siteData.json', JSON.stringify( siteData ) );
+	fs.writeFileSync( instancePath + '/instanceData.json', JSON.stringify( instanceData ) );
 
-	await prepareLandoEnv( siteData, sitePath );
+	await prepareLandoEnv( instanceData, instancePath );
 
-	landoRebuild( sitePath );
+	landoRebuild( instancePath );
 }
 
 function setOptionsForSiteId( options, siteId ) {
@@ -128,38 +128,38 @@ function setOptionsForSiteId( options, siteId ) {
 	} );
 }
 
-function updateSiteDataWithOptions( siteData, options ) {
-	updatePhpData( siteData, options.php );
-	updateWordPressData( siteData, options.wordpress );
-	updateMuPluginsData( siteData, options.muPlugins );
-	updateJetpackData( siteData, options.jetpack );
-	updateClientCodeData( siteData, options.clientCode );
+function updateSiteDataWithOptions( instanceData, options ) {
+	updatePhpData( instanceData, options.php );
+	updateWordPressData( instanceData, options.wordpress );
+	updateMuPluginsData( instanceData, options.muPlugins );
+	updateJetpackData( instanceData, options.jetpack );
+	updateClientCodeData( instanceData, options.clientCode );
 }
 
-function updatePhpData( siteData, phpParam ) {
+function updatePhpData( instanceData, phpParam ) {
 	if ( phpParam ) {
-		siteData.phpVersion = phpParam;
-	} else if ( ! siteData.phpVersion ) {
-		siteData.phpVersion = defaultPHP;
+		instanceData.phpVersion = phpParam;
+	} else if ( ! instanceData.phpVersion ) {
+		instanceData.phpVersion = defaultPHP;
 	}
 }
 
-function updateWordPressData( siteData, wpParam ) {
+function updateWordPressData( instanceData, wpParam ) {
 	if ( wpParam ) {
 		if ( wpParam.includes( '/' ) ) {
-			siteData.wordpress = {
+			instanceData.wordpress = {
 				mode: 'local',
 				dir: wpParam,
 			}
 		} else {
-			siteData.wordpress = {
+			instanceData.wordpress = {
 				mode: 'image',
 				image: containerImages['wordpress'].image,
 				tag: wpParam,
 			}
 		}
-	} else if ( ! siteData.wordpress.mode ) {
-		siteData.wordpress = {
+	} else if ( ! instanceData.wordpress.mode ) {
+		instanceData.wordpress = {
 			mode: 'image',
 			image: containerImages['wordpress'].image,
 			tag: containerImages['wordpress'].tag,
@@ -167,22 +167,22 @@ function updateWordPressData( siteData, wpParam ) {
 	}
 }
 
-function updateMuPluginsData( siteData, muParam ) {
+function updateMuPluginsData( instanceData, muParam ) {
 	if ( muParam ) {
 		if ( muParam.includes( '/' ) ) {
-			siteData.muplugins = {
+			instanceData.muplugins = {
 				mode: 'local',
 				dir: muParam,
 			}
 		} else {
-			siteData.muplugins = {
+			instanceData.muplugins = {
 				mode: 'image',
 				image: containerImages['muplugins'].image,
 				tag: muParam,
 			}
 		}
-	} else if ( ! siteData.muplugins.mode ) {
-		siteData.muplugins = {
+	} else if ( ! instanceData.muplugins.mode ) {
+		instanceData.muplugins = {
 			mode: 'image',
 			image: containerImages['muplugins'].image,
 			tag: containerImages['muplugins'].tag,
@@ -190,22 +190,22 @@ function updateMuPluginsData( siteData, muParam ) {
 	}
 }
 
-function updateJetpackData( siteData, jpParam ) {
+function updateJetpackData( instanceData, jpParam ) {
 	if ( jpParam ) {
 		if ( jpParam.includes( '/' ) ) {
-			siteData.jetpack = {
+			instanceData.jetpack = {
 				mode: 'local',
 				dir: jpParam,
 			}
 		} else {
-			siteData.jetpack = {
+			instanceData.jetpack = {
 				mode: 'image',
 				image: containerImages['jetpack'].image,
 				tag: jpParam,
 			}
 		}
-	} else if ( ! siteData.jetpack.mode ) {
-		siteData.jetpack = {
+	} else if ( ! instanceData.jetpack.mode ) {
+		instanceData.jetpack = {
 			mode: 'image',
 			image: containerImages['jetpack'].image,
 			tag: containerImages['jetpack'].tag,
@@ -213,22 +213,22 @@ function updateJetpackData( siteData, jpParam ) {
 	}
 }
 
-function updateClientCodeData( siteData, codeParam ) {
+function updateClientCodeData( instanceData, codeParam ) {
 	if ( codeParam ) {
 		if ( codeParam.includes( 'github' ) ) {
-			siteData.clientcode = {
+			instanceData.clientcode = {
 				mode: 'git',
 				repo: codeParam,
 				fetched: false,
 			}
 		} else {
-			siteData.clientcode = {
+			instanceData.clientcode = {
 				mode: 'local',
 				dir: codeParam,
 			}
 		}
-	} else if ( ! siteData.clientcode.mode ) {
-		siteData.clientcode = {
+	} else if ( ! instanceData.clientcode.mode ) {
+		instanceData.clientcode = {
 			mode: 'image',
 			image: containerImages['skeleton'].image,
 			tag: containerImages['skeleton'].tag,
@@ -236,14 +236,14 @@ function updateClientCodeData( siteData, codeParam ) {
 	}
 }
 
-async function prepareLandoEnv( siteData, sitePath ) {
-	if ( siteData.clientcode.mode == 'git' && ! siteData.clientcode.fetched ) {
-		const clonePath = sitePath + '/clientcode';
+async function prepareLandoEnv( instanceData, instancePath ) {
+	if ( instanceData.clientcode.mode == 'git' && ! instanceData.clientcode.fetched ) {
+		const clonePath = instancePath + '/clientcode';
 		fs.rmdirSync(clonePath, { recursive: true });
 
-		console.log( 'Cloning client code repo: ' + siteData.clientcode.repo );
+		console.log( 'Cloning client code repo: ' + instanceData.clientcode.repo );
 
-		let [ repo, branch ] = siteData.clientcode.repo.split( '#' );
+		let [ repo, branch ] = instanceData.clientcode.repo.split( '#' );
 
 		let cmd = 'git clone ' + repo + ' ' + clonePath;
 		if ( branch ) {
@@ -251,17 +251,17 @@ async function prepareLandoEnv( siteData, sitePath ) {
 		}
 
 		cp.execSync( cmd );
-		siteData.clientcode.fetched = true;
-		siteData.clientcode.dir = './clientcode';
+		instanceData.clientcode.fetched = true;
+		instanceData.clientcode.dir = './clientcode';
 	}
-	const landoFile = await ejs.renderFile( '.lando.yml.ejs', siteData );
-	fs.writeFileSync( sitePath + '/.lando.yml', landoFile );
+	const landoFile = await ejs.renderFile( '.lando.yml.ejs', instanceData );
+	fs.writeFileSync( instancePath + '/.lando.yml', landoFile );
 }
 
-function landoStart( sitePath ) {
-	cp.execSync( 'lando start', { cwd: sitePath, stdio: 'inherit' } );
+function landoStart( instancePath ) {
+	cp.execSync( 'lando start', { cwd: instancePath, stdio: 'inherit' } );
 }
 
-function landoRebuild( sitePath ) {
-	cp.execSync( 'lando rebuild -y', { cwd: sitePath, stdio: 'inherit' } );
+function landoRebuild( instancePath ) {
+	cp.execSync( 'lando rebuild -y', { cwd: instancePath, stdio: 'inherit' } );
 }
