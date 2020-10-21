@@ -54,6 +54,7 @@ services:
     - appserver
   memcached:
     type: memcached:1.5.12
+    portforward: 11211
   database:
     portforward: 13306
   statsd:

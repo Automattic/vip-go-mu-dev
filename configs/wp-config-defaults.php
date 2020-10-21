@@ -94,6 +94,17 @@ if ( ! defined( 'VIP_STATSD_PORT' ) ) {
 }
 
 /**
+ * Object cache config:
+ *
+ * This should match the values in Lando config.
+ */
+$GLOBALS['memcached_servers'] = [
+	'default' => [
+		'memcached:11211',
+	],
+];
+
+/**
  * Debugging
  */
 if ( ! defined( 'WP_DEBUG' ) ) {
