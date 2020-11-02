@@ -17,7 +17,7 @@ has_param() {
 }
 
 exists_or_exit() {
-  command -v "$1" &> /dev/null || { echo >&2 "$1 must installed but was not found; exiting"; exit 1; }
+  command -v "$1" &> /dev/null || { echo >&2 "$1 must be installed but was not found; exiting"; exit 1; }
 }
 
 echo_heading() {
