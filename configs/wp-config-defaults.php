@@ -54,8 +54,8 @@ if ( ! defined( 'FILES_CLIENT_SITE_ID' ) ) {
 /**
  * VIP Config
  */
-if ( file_exists( __DIR__ . '/wp-content/vip-config/vip-config.php' ) ) {
-	require_once( __DIR__ . '/wp-content/vip-config/vip-config.php' );
+if ( file_exists( ABSPATH . '/wp-content/vip-config/vip-config.php' ) ) {
+	require_once( ABSPATH . '/wp-content/vip-config/vip-config.php' );
 }
 
 /**
