@@ -2,6 +2,7 @@
 
 # Dev Files
 /mu-plugins/
+/wp-memcached/
 /wp/
 /wp-content/
 /wp-tests/

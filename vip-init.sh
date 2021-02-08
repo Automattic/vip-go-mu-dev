@@ -99,6 +99,15 @@ else
 	echo "Skeleton already exists; skipping"
 fi
 
+echo_heading "wp-memcached"
+WP_MEMCACHED_PATH="$ROOT_PATH/wp-memcached"
+if [ ! -d "$WP_MEMCACHED_PATH" ]; then
+	echo "Cloning wp-memcached => $WP_MEMCACHED_PATH"
+	git clone git@github.com:Automattic/wp-memcached.git $WP_MEMCACHED_PATH
+else
+	echo "wp-memcached already exists"
+fi
+
 # ---
 
 echo_heading "Starting Lando"
