@@ -1,5 +1,13 @@
 ## VIP Go mu-plugins Dev
 
+> ==============================
+>
+> THIS REPO IS BEING DEPRECATED.
+>
+> Please use https://docs.wpvip.com/technical-references/vip-local-development-environment/ instead.
+>
+> ==============================
+
 A development environment for [mu-plugins on VIP Go](https://github.com/Automattic/vip-go-mu-plugins/).
 
 ## Install
