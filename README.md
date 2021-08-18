@@ -1,5 +1,13 @@
 ## VIP Go mu-plugins Dev
 
+> ==============================
+>
+> THIS REPO IS BEING DEPRECATED.
+>
+> Please go to https://github.com/Automattic/vip-container-images
+>
+> ==============================
+
 A development environment for [mu-plugins on VIP Go](https://github.com/Automattic/vip-go-mu-plugins/).
 
 ## Install
